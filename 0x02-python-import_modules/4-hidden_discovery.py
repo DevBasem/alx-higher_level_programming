@@ -7,5 +7,4 @@ if __name__ == "__main__":
 
     for attribute in sorted_attributes:
         if not attribute.startswith("__"):
-            print("{}".format(attribute))
-
+            print(attribute)
