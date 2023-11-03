@@ -1,2 +1,2 @@
 #!/usr/bin/python3
-chr(35), print("#pythoniscool")
+exec('import sys\nsys.stdout.write("#pythoniscool\\n")')
