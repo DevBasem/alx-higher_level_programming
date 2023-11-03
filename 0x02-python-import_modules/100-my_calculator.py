@@ -3,38 +3,29 @@
 import sys
 from calculator_1 import add, sub, mul, div
 
-def main():
-    if len(sys.argv) != 4:
+if __name__ == "__main__":
+    argv = sys.argv[1:]
+    argv_count = len(argv)
+    operators = ["+", "-", "*", "/"]
+    
+    if argv_count != 3:
         print("Usage: ./100-my_calculator.py <a> <operator> <b>")
-        sys.exit(1)
-
-    a, operator, b = sys.argv[1], sys.argv[2], sys.argv[3]
-
-    if operator not in ["+", "-", "*", "/"]:
-        print("Unknown operator. Available operators: +, -, *, and /")
-        sys.exit(1)
-
-    try:
-        a, b = int(a), int(b)
-
-        if operator == "+":
+        exit(1)
+    elif sys.argv[2] not in operators:
+        print("Unknown operator. Available operators: +, -, * and /")
+        exit(1)
+    else:
+        a = int(sys.argv[1])
+        b = int(sys.argv[3])
+        if sys.argv[2] == "+":
             result = add(a, b)
             print("{:d} + {:d} = {:d}".format(a, b, result))
-        elif operator == "-":
+        elif sys.argv[2] == "-":
             result = sub(a, b)
             print("{:d} - {:d} = {:d}".format(a, b, result))
-        elif operator == "*":
+        elif sys.argv[2] == "*":
             result = mul(a, b)
             print("{:d} * {:d} = {:d}".format(a, b, result))
-        elif operator == "/":
-            if b == 0:
-                print("Error: Division by zero is not allowed")
-                sys.exit(1)
+        elif sys.argv[2] == "/":
             result = div(a, b)
             print("{:d} / {:d} = {:d}".format(a, b, result))
-    except ValueError:
-        print("Error: Please enter valid integer inputs for 'a' and 'b")
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
