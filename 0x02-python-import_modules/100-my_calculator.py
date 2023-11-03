@@ -3,8 +3,7 @@ import sys
 from calculator_1 import add, sub, mul, div
 
 if __name__ == "__main__":
-    argc = len(sys.argv) - 1
-    if argc != 3:
+    if len(sys.argv) != 4:
         print("Usage: {} <a> <operator> <b>".format(sys.argv[0]))
         sys.exit(1)
 
@@ -25,4 +24,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     print("{:d} {} {:d} = {:d}".format(a, operator, b, result))
-
+else:
+    pass
