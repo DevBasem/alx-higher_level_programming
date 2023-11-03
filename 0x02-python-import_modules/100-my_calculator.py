@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 if __name__ == "__main__":
-    from calculator_1 import add, sub, mul, div
     import sys
+    from calculator_1 import add, sub, mul, div
     argv = sys.argv[1:]
     argv_count = len(argv)
     operators = ["+", "-", "*", "/"]
