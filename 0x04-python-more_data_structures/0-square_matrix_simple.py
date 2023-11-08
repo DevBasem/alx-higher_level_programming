@@ -1,16 +1,13 @@
 #!/usr/bin/python3
 def square_matrix_simple(matrix=[]):
-    new_matrix = []
+    num_rows = len(matrix)
+    num_cols = len(matrix[0]) if num_rows > 0 else 0
 
-    for row in matrix:
+    new_matrix = [[0] * num_cols for _ in range(num_rows)]
 
-        new_row = []
-
-        for element in row:
-            squared_value = element ** 2
-            new_row.append(squared_value)
-
-        new_matrix.append(new_row)
+    for i in range(num_rows):
+        for j in range(num_cols):
+            new_matrix[i][j] = matrix[i][j] ** 2
 
     return new_matrix
 
