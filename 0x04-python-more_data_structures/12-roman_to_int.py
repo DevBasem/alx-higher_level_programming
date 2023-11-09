@@ -2,7 +2,7 @@
 def roman_to_int(roman_string):
     if not isinstance(roman_string, str) or roman_string is None:
         return 0
-    
+
     roman_values = {
         'I': 1,
         'V': 5,
@@ -12,10 +12,10 @@ def roman_to_int(roman_string):
         'D': 500,
         'M': 1000
     }
-    
+
     result = 0
     prev_value = 0
-    
+
     for roman_digit in reversed(roman_string):
         value = roman_values.get(roman_digit, 0)
         if value >= prev_value:
@@ -23,5 +23,5 @@ def roman_to_int(roman_string):
         else:
             result -= value
         prev_value = value
-    
+
     return result
