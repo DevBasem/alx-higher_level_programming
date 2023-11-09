@@ -7,6 +7,12 @@
  */
 void print_python_list(PyObject *p)
 {
+	if (!PyList_Check(p))
+	{
+		fprintf(stderr, "[ERROR] Invalid List Object\n");
+		return;
+	}
+
 	PyListObject *list = (PyListObject *)p;
 	Py_ssize_t size = ((PyVarObject *)p)->ob_size;
 	Py_ssize_t allocated = list->allocated;
@@ -29,6 +35,12 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
+	if (!PyBytes_Check(p))
+	{
+		fprintf(stderr, "[ERROR] Invalid Bytes Object\n");
+		return;
+	}
+
 	PyBytesObject *bytes = (PyBytesObject *)p;
 	Py_ssize_t size = ((PyVarObject *)p)->ob_size;
 	char *str = bytes->ob_sval;
@@ -38,12 +50,11 @@ void print_python_bytes(PyObject *p)
 	printf("  trying string: %s\n", str);
 
 	printf("  first 10 bytes: ");
-	if (size > 10)
-		size = 10;
-	for (Py_ssize_t i = 0; i < size; i++)
+	Py_ssize_t max_bytes = size < 10 ? size : 10;
+	for (Py_ssize_t i = 0; i < max_bytes; i++)
 	{
 		printf("%02x", (unsigned char)str[i]);
-		if (i < size - 1)
+		if (i < max_bytes - 1)
 			printf(" ");
 	}
 	printf("\n");
