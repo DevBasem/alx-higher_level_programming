@@ -1,0 +1,107 @@
+"""
+How to use 0-add_integer.py
+"""
+
+# Import function from module
+# ----------------------------
+>>> add_integer = __import__('0-add_integer').add_integer
+
+# Basic cases (intranet)
+# -----------------------
+    
+# Adding 2 to the default value of b (98)
+>>> add_integer(2)
+100
+
+# Adding 1 and 2
+>>> add_integer(1, 2)
+3
+
+# Adding 100 and -2
+>>> add_integer(100, -2)
+98
+
+# Adding 100.3 and -2 after casting to integers
+>>> add_integer(100.3, -2)
+98
+
+# Exception for non-integer value of b
+>>> add_integer(4, "School")
+Traceback (most recent call last):
+TypeError: b must be an integer
+
+# Exception for non-integer value of a
+>>> add_integer(None)
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+# Edge cases
+# ----------------
+
+# Missing required positional argument 'a'
+>>> add_integer()
+Traceback (most recent call last):
+TypeError: add_integer() missing 1 required positional argument: 'a'
+
+# Exception for non-integer value of a
+>>> add_integer("unicorn")
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+# Exception for non-integer value of b
+>>> add_integer(5, None)
+Traceback (most recent call last):
+TypeError: b must be an integer
+
+# Too many positional arguments
+>>> add_integer(34, 54, 67)
+Traceback (most recent call last):
+TypeError: add_integer() takes from 1 to 2 positional arguments but 3 were given
+
+# Result can't be a float, adding 2.5 and 3.7 after casting to integers
+>>> add_integer(2.5, 3.7)
+5
+
+# Result can't be a float, adding 3.7 after casting to integer
+>>> add_integer(3.7)
+101
+
+# Exception for non-integer value of a (list)
+>>> add_integer([1, 2, 3])
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+# Exception for non-integer value of a (tuple)
+>>> add_integer((1, 2, 3))
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+# Exception for non-integer value of a (dictionary)
+>>> add_integer({"a": 1, "b": 2, "c": 3})
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+# Exception for non-integer value of a (None)
+>>> add_integer(None)
+Traceback (most recent call last):
+TypeError: a must be an integer
+
+# OverflowError for adding -inf and inf
+>>> add_integer(float('-inf'), float('inf'))
+Traceback (most recent call last):
+OverflowError: cannot convert float infinity to integer
+
+# OverflowError for a very large number
+>>> add_integer(100e1000, 1)
+Traceback (most recent call last):
+OverflowError: cannot convert float infinity to integer
+
+# OverflowError for adding inf
+>>> add_integer(float('inf'))
+Traceback (most recent call last):
+OverflowError: cannot convert float infinity to integer
+
+# ValueError for adding NaN
+>>> add_integer(float('nan'), 0)
+Traceback (most recent call last):
+ValueError: cannot convert float NaN to integer
