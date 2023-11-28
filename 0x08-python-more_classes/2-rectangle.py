@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Rectangle class for Holberton Python project 0x08 task 2.
-"""
+"""2-rectangle."""
 
 
 class Rectangle:
