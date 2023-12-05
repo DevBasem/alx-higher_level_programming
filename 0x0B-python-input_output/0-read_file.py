@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""read_file module"""
+
 
 def read_file(filename=""):
     """
@@ -10,5 +12,5 @@ def read_file(filename=""):
     Returns:
         None
     """
-    with open(filename, "r", encoding='utf-8') as f:
-        print(f.read(), end='')
+    with open(filename, encoding='utf-8') as file:
+        print(file.read(), end='')
