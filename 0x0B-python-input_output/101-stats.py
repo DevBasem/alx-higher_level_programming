@@ -1,55 +1,45 @@
 #!/usr/bin/python3
 """
-101-stats module
+Reads stdin line by line, computes metrics,
+and prints statistics every 10 lines
+and after a keyboard interruption (CTRL + C).
 
-This script reads input from stdin line by line and computes metrics.
-
-Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1"
-                                        <status code> <file size>
-Each 10 lines and after a keyboard interruption (CTRL + C),
-it prints the following statistics since the beginning:
+Metrics:
 - Total file size: File size: <total size>
+  (sum of file sizes from previous lines, see input format above)
 - Number of lines by status code:
-    - Possible status codes: 200, 301, 400, 401, 403, 404, 405, and 500
-    - If a status code doesn’t appear, it doesn’t print anything
-    for that status code
-    - Format: <status code>: <number>
-    - Status codes are printed in ascending order
+  - Possible status codes: 200, 301, 400, 401, 403, 404, 405, 500
+  - Format: <status code>: <number>, printed in ascending order
 """
-
 import sys
 
-if __name__ == "__main__":
-    size = 0
-    codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+file_size = 0
+status_tally = {"200": 0, "301": 0, "400": 0, "401": 0,
+                "403": 0, "404": 0, "405": 0, "500": 0}
+line_count = 0
 
-    def check_match(line):
-        '''Checks for regexp match in line.'''
-        try:
-            line = line[:-1]
-            words = line.split(" ")
-            size += int(words[-1])
-            code = int(words[-2])
-            if code in codes:
-                codes[code] += 1
-        except ValueError:
-            pass
+try:
+    for line in sys.stdin:
+        tokens = line.split()
+        if len(tokens) >= 2 and tokens[-2] in status_tally:
+            status_tally[tokens[-2]] += 1
+            try:
+                file_size += int(tokens[-1])
+            except Exception:
+                continue
+        line_count += 1
+        if line_count % 10 == 0:
+            print("File size: {:d}".format(file_size))
+            for key, value in sorted(status_tally.items()):
+                if value:
+                    print("{:s}: {:d}".format(key, value))
+    print("File size: {:d}".format(file_size))
+    for key, value in sorted(status_tally.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
 
-    def print_stats():
-        '''Prints accumulated statistics.'''
-        print("File size: {}".format(size))
-        for k in sorted(codes.keys()):
-            if codes[k]:
-                print("{}: {}".format(k, codes[k]))
-
-    i = 1
-    try:
-        for line in sys.stdin:
-            check_match(line)
-            if i % 10 == 0:
-                print_stats()
-            i += 1
-    except KeyboardInterrupt:
-        print_stats()
-        raise
-    print_stats()
+except KeyboardInterrupt:
+    print("File size: {:d}".format(file_size))
+    for key, value in sorted(status_tally.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
