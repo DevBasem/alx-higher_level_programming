@@ -2,7 +2,7 @@
 -- during July and August from the 'Temperatures' table.
 SELECT `city`, AVG(`value`) AS `avg_temp`
 FROM `Temperatures`
-WHERE `month` IN (7, 8)
+WHERE `month` = 7 OR `month` = 8
 GROUP BY `city`
 ORDER BY `avg_temp` DESC
 LIMIT 3;
