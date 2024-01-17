@@ -3,10 +3,11 @@ USE `hbtn_0d_usa`;
 
 -- Select cities with corresponding state names using a subquery
 SELECT
-    `cities`.`id`,
-    `cities`.`name`,
-    (SELECT `states`.`name` FROM `states` WHERE `states`.`id` = `cities`.`state_id`) AS `state_name`
+    `city`.`id` AS `city_id`,
+    `city`.`name` AS `city_name`,
+    `state`.`name` AS `state_name`
 FROM
-    `cities`
+    `cities` AS `city`
+    INNER JOIN `states` AS `state` ON `city`.`state_id` = `state`.`id`
 ORDER BY
-    `cities`.`id`;
+    `city`.`id`;
