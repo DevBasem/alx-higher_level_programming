@@ -3,22 +3,15 @@
 -- Each record displays: tv_genres.name.
 -- Results are sorted in ascending order by the genre name.
 
--- Step 1: Select the genre IDs linked to the show Dexter
-SELECT DISTINCT tg.`id`
-FROM `tv_genres` tg
-INNER JOIN `tv_show_genres` tsg ON tg.`id` = tsg.`genre_id`
-INNER JOIN `tv_shows` ts ON tsg.`show_id` = ts.`id`
-WHERE ts.`title` = 'Dexter';
-
--- Step 2: Select all genres not linked to the show Dexter
-SELECT `name`
-FROM `tv_genres`
-WHERE `id` NOT IN (
-    -- Subquery to get genre IDs linked to Dexter
-    SELECT DISTINCT tg.`id`
-    FROM `tv_genres` tg
-    INNER JOIN `tv_show_genres` tsg ON tg.`id` = tsg.`genre_id`
-    INNER JOIN `tv_shows` ts ON tsg.`show_id` = ts.`id`
-    WHERE ts.`title` = 'Dexter'
+SELECT DISTINCT g.`name`
+FROM `tv_genres` AS g
+INNER JOIN `tv_show_genres` AS s ON g.`id` = s.`genre_id`
+INNER JOIN `tv_shows` AS t ON s.`show_id` = t.`id`
+WHERE g.`name` NOT IN (
+    SELECT g2.`name`
+    FROM `tv_genres` AS g2
+    INNER JOIN `tv_show_genres` AS s2 ON g2.`id` = s2.`genre_id`
+    INNER JOIN `tv_shows` AS t2 ON s2.`show_id` = t2.`id`
+    WHERE t2.`title` = 'Dexter'
 )
-ORDER BY `name`;
+ORDER BY g.`name`;
