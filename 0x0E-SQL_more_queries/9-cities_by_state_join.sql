@@ -1,8 +1,12 @@
 -- Use the database
 USE `hbtn_0d_usa`;
 
--- Select cities with corresponding state names using JOIN
-SELECT `cities`.`id`, `cities`.`name`, `states`.`name` AS `state_name`
-FROM `cities`
-JOIN `states` ON `cities`.`state_id` = `states`.`id`
-ORDER BY `cities`.`id`;
+-- Select cities with corresponding state names using a subquery
+SELECT
+    `cities`.`id`,
+    `cities`.`name`,
+    (SELECT `states`.`name` FROM `states` WHERE `states`.`id` = `cities`.`state_id`) AS `state_name`
+FROM
+    `cities`
+ORDER BY
+    `cities`.`id`;
