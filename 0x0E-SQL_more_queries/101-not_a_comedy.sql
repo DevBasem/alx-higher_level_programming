@@ -6,7 +6,10 @@
 
 SELECT DISTINCT t.`title`
 FROM `tv_shows` AS t
-LEFT JOIN `tv_show_genres` AS s ON t.`id` = s.`show_id`
-LEFT JOIN `tv_genres` AS g ON s.`genre_id` = g.`id`
-WHERE g.`name` IS NULL OR g.`name` <> 'Comedy'
+WHERE t.`id` NOT IN (
+    SELECT s.`show_id`
+    FROM `tv_show_genres` AS s
+    JOIN `tv_genres` AS g ON s.`genre_id` = g.`id`
+    WHERE g.`name` = 'Comedy'
+)
 ORDER BY t.`title`;
