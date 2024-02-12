@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
 // Print a square
-const character = 'x';
+const character = 'X';
 const size = parseInt(process.argv[2]);
 
 if (isNaN(size)) {
