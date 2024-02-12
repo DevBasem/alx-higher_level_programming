@@ -17,5 +17,6 @@ switch (numberOfArgs) {
     break;
 
   default:
+    console.log('Arguments found')
     break;
 }
