@@ -1,19 +1,11 @@
 #!/usr/bin/node
 
 // Find biggest second number in a list
-const numberOfArgs = process.argv.length;
-const listOfNumbers = process.argv.slice(2);
-const indexOfBiggestSecondNumber = listOfNumbers.length - 2;
+const args = process.argv.slice(2).map(Number);
 
-function findBiggestSecondNumber (numbers) {
-  if (numberOfArgs < 4) {
-    console.log(0);
-    return;
-  }
-
-  const sortedNumbers = numbers.sort((a, b) => a - b);
-  const BiggestSecondNumber = sortedNumbers[indexOfBiggestSecondNumber];
-  return BiggestSecondNumber;
+if (args.length <= 1) {
+  console.log(0);
+} else {
+  const sortedArgs = args.sort((a, b) => b - a);
+  console.log(sortedArgs[1]);
 }
-
-console.log(findBiggestSecondNumber(listOfNumbers));
