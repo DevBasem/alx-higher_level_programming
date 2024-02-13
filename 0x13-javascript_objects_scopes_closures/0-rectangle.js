@@ -1,5 +1,7 @@
 #!/usr/bin/node
 
 // this is a class
-export default class Rectangle {
+class Rectangle {
 }
+
+module.exports = Rectangle
