@@ -12,7 +12,8 @@ if __name__ == "__main__":
 
     # Database connection
     engine = create_engine(
-        f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}',
+        'mysql+mysqldb://{}:{}@localhost:3306/{}'
+        .format(username, password, db_name),
         pool_pre_ping=True
     )
     Base.metadata.create_all(engine)
@@ -28,8 +29,8 @@ if __name__ == "__main__":
 
     # Display results
     for state in result:
-        print(f"{state.id}: {state.name}")
+        print("{}: {}".format(state.id, state.name))
         for city in state.cities:
-            print(f"    {city.id}: {city.name}")
+            print("    {}: {}".format(city.id, city.name))
 
     session.close()
