@@ -11,7 +11,6 @@ if __name__ == "__main__":
     Script that lists all City objects and their associated State objects
     from the database hbtn_0e_101_usa.
     """
-    # Take command line arguments for MySQL username, password, and database name
     username, password, db_name = argv[1], argv[2], argv[3]
 
     # Create MySQL engine using SQLAlchemy
