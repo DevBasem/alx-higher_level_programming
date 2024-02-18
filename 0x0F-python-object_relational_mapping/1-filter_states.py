@@ -17,7 +17,8 @@ if __name__ == "__main__":
         port=3306,
         user=mysql_username,
         passwd=mysql_password,
-        db=db_name
+        db=db_name,
+        charset="utf8"
     )
 
     cursor = db.cursor()
