@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""Script that changes the name of a State object from the database hbtn_0e_6_usa"""
+"""Script that prints all City objects from the database hbtn_0e_14_usa"""
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
+from model_city import City
 from sys import argv
 
 
@@ -19,14 +20,10 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Query the State with id=2
-    state_to_update = session.query(State).filter_by(id=2).first()
-
-    # Update the name of the State to "New Mexico"
-    state_to_update.name = "New Mexico"
-
-    # Commit the session to the database
-    session.commit()
+    # Query all City objects and print the results
+    cities = session.query(City, State).join(State).order_by(City.id).all()
+    for city, state in cities:
+        print("{}: ({}) {}".format(state.name, city.id, city.name))
 
     # Close the session
     session.close()
