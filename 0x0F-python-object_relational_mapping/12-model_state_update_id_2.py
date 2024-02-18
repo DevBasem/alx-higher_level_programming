@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-"""Script that adds the State object "Louisiana" to the database hbtn_0e_6_usa"""
+"""Script that changes the name of a State object from the database hbtn_0e_6_usa"""
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
 from sys import argv
-
 
 if __name__ == "__main__":
     # Connect to the database
@@ -19,17 +18,14 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Create a new State object
-    new_state = State(name='Louisiana')
+    # Query the State with id=2
+    state_to_update = session.query(State).filter_by(id=2).first()
 
-    # Add the new State to the session
-    session.add(new_state)
+    # Update the name of the State to "New Mexico"
+    state_to_update.name = "New Mexico"
 
     # Commit the session to the database
     session.commit()
-
-    # Print the new states.id after creation
-    print(new_state.id)
 
     # Close the session
     session.close()
