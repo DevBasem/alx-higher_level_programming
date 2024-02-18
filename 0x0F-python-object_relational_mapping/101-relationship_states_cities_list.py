@@ -1,12 +1,18 @@
 #!/usr/bin/python3
 """List all State objects and their corresponding City objects"""
 from sys import argv
-from relationship_state import Base, State
-from relationship_city import City
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from relationship_state import Base, State
+from relationship_city import City
 
 if __name__ == "__main__":
+    # Check if correct number of arguments are provided
+    if len(argv) != 4:
+        print("Usage: {} <username> <password> <database>".format(argv[0]))
+        exit(1)
+
+    # Take command line arguments for MySQL username, password, and database name
     username, password, db_name = argv[1], argv[2], argv[3]
 
     # Create MySQL engine using SQLAlchemy
@@ -15,6 +21,9 @@ if __name__ == "__main__":
         .format(username=username, password=password, db_name=db_name),
         pool_pre_ping=True
     )
+
+    # Create all tables in the database
+    Base.metadata.create_all(engine)
 
     # Create a session to interact with the database
     Session = sessionmaker(bind=engine)
