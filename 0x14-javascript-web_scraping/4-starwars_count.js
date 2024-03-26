@@ -1,12 +1,15 @@
 #!/usr/bin/node
 
 const request = require('request');
-const url = process.argv[2];
 
-request(url, function (err, response, body) {
-  if (err) {
-    console.log(err);
-  } else if (response.statusCode === 200) {
+const apiUrl = process.argv[2];
+
+request(apiUrl, function (error, response, body) {
+  if (error) {
+    console.error('Error:', error);
+  } else if (response.statusCode !== 200) {
+    console.error('Invalid response:', response.statusCode);
+  } else {
     const films = JSON.parse(body).results;
     let count = 0;
     for (const filmIndex in films) {
@@ -18,7 +21,5 @@ request(url, function (err, response, body) {
       }
     }
     console.log(count);
-  } else {
-    console.log('An error occured. Status code: ' + response.statusCode);
   }
 });
